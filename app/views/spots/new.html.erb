@@ -1,0 +1,13 @@
+<h3>New Posts</h3>
+
+<%= form_for @spot do |f| %>
+
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_field :body, :size => 140 %>
+    </div>
+
+    <%= f.submit "Post" %>
+    
+<% end %>
+<%= link_to "ALL Post", spots_path %>

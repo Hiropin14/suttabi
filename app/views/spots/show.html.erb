@@ -1,0 +1,11 @@
+<h3>About Spots</h3>
+
+<div class="spot">
+  <p><%= @spot.body %></p>
+  <p><%= @spot.created_at %></p>
+  <%= link_to "Edit", edit_spot_path(@spot.id) %>
+</div>
+
+<%= link_to "Back All Spot", spots_path %>
+
+

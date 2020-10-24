@@ -1,0 +1,8 @@
+<h3>Edit Spots</h3>
+
+<%= form_for @spot do |f| %>
+    <%= f.label :body %>
+    <%= f.text_field :body, :size => 140 %> 
+    <%= f.submit "Edit" %>
+<% end %>
+

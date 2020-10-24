@@ -1,0 +1,30 @@
+<h3>All Psot</h3>
+
+
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"spots",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+
+<div class="spots-container">
+  
+
+  <% @spots.each do |t| %>
+    <div class="spot">
+      
+      <%= t.user.email %>
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+      <%= t.body %>
+      <%= t.created_at %>
+      
+      <%= link_to "Edit", edit_spot_path(t.id) %>
+      <%= link_to "About", spot_path(t.id) %>
+      <%= link_to "Delate", spot_path(t.id), method: :delete %>
+
+    </div>
+  <% end %>
+</div>
+<%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
