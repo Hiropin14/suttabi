@@ -14,11 +14,30 @@
   <% @spots.each do |t| %>
     <div class="spot">
       
-      <%= t.user.email %>
+      <%= t.user.name %>
       <%= image_tag t.image_url, size: "250x200" if t.image? %>
 
       <%= t.body %>
       <%= t.created_at %>
+
+      <% if user_signed_in? %>
+       <% if current_user.already_liked?(t) %>
+          <%= link_to spot_likes_path(id: t.id, spot_id: t.id), method: :delete do %>
+              
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+
+          <% end %>
+       <% else %>
+          <%= link_to spot_likes_path(id: t.id, spot_id: t.id), method: :post do %>
+             
+            <i class="far fa-heart"></i><%= t.likes.count %>
+            
+          <% end %>
+       <% end %>
+      <% else %>
+      　<i class="far fa-heart"></i><%= t.likes.count %>
+      <% end %>
+      
       
       <%= link_to "Edit", edit_spot_path(t.id) %>
       <%= link_to "About", spot_path(t.id) %>
