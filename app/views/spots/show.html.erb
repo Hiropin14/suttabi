@@ -4,6 +4,46 @@
   <p><%= @spot.body %></p>
   <p><%= @spot.created_at %></p>
   <%= link_to "Edit", edit_spot_path(@spot.id) %>
+ 
+  <% if user_signed_in? %>
+   <% if current_user.already_liked?(@spot) %>
+      <%= link_to spot_likes_path(@spot), method: :delete do %>
+         
+        <i class="fas fa-heart"></i><%= @spot.likes.count %>
+        
+      <% end %>
+   <% else %>
+      <%= link_to spot_likes_path(@spot), method: :post do %>
+         
+        <i class="far fa-heart"></i><%= @spot.likes.count %>
+        
+      <% end %>
+   <% end %>
+ <% else %>
+ 　<i class="far fa-heart"></i><%= @spot.likes.count %>
+ <% end %>
+
+</div>
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@spot, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
 
 <%= link_to "Back All Spot", spots_path %>
