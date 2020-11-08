@@ -5,6 +5,9 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :liked_spots, through: :likes, source: :spot
+
+  has_many :favorites, dependent: :destroy 
+  
   validates :name, presence: true 
   validates :profile, length: { maximum: 200 } 
 

@@ -1,13 +1,11 @@
 class UsersController < ApplicationController
-<<<<<<< HEAD
-    def show
-        @user = User.find(params[:id]) 
-    end
-=======
 
     def show
         @user = User.find(params[:id]) 
+        @posts = @user.posts
+
+        favorites = Favorite.where(user_id: current_user.id).pluck(:post_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
+        @favorite_list = Post.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
     end
 
->>>>>>> googlemap
 end

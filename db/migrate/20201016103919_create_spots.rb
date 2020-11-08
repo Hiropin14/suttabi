@@ -7,7 +7,7 @@ class CreateSpots < ActiveRecord::Migration[6.0]
       t.string :image
       t.string :address
       t.datetime :worktime
-      t.integer :user_id
+      t.references :user, null: false, foreign_key: true
       
 
       t.timestamps
