@@ -11,8 +11,7 @@ class SpotsController < ApplicationController
 
   def show
     @spot = Spot.find(params[:id])
-    @comments = @spot.comments
-    @comment = Comment.new
+   
   end
 
   def edit
@@ -47,7 +46,7 @@ class SpotsController < ApplicationController
 
   private
   def spot_params
-    params.require(:spot).permit(:body, :image)
+    params.require(:spot).permit(:about, :image)
   end
 
 end

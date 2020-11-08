@@ -1,7 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyText
+  name: MyString
+  address: MyString
+  image: MyString
+  category: MyString
+  worktime: 2020-11-08 18:23:53
+  about: MyText
+  user: one
 
 two:
-  body: MyText
+  name: MyString
+  address: MyString
+  image: MyString
+  category: MyString
+  worktime: 2020-11-08 18:23:53
+  about: MyText
+  user: two

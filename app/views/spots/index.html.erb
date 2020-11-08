@@ -17,12 +17,12 @@
   <% @spots.each do |t| %>
     <div class="spot">
       
-      <%= t.user.name %>
+      
       <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>　
 
       <%= image_tag t.image_url, size: "250x200" if t.image? %>
 
-      <%= t.body %>
+      <%= t.about %>
       <%= t.created_at %>
 
       <% if user_signed_in? %>
