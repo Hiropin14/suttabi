@@ -6,23 +6,9 @@
   <%= @spot.address %>
   <%= link_to "Edit", edit_spot_path(@spot.id) %>
  
-  <% if user_signed_in? %>
-   <% if current_user.already_liked?(@spot) %>
-      <%= link_to like_delete_path(@spot), method: :destroy do %>
-         
-        <i class="fas fa-heart"></i><%= @spot.likes.count %>
-        
-      <% end %>
-   <% else %>
-      <%= link_to like_path(@spot), method: :post do %>
-         
-        <i class="far fa-heart"></i><%= @spot.likes.count %>
-        
-      <% end %>
-   <% end %>
- <% else %>
- 　<i class="far fa-heart"></i><%= @spot.likes.count %>
- <% end %>
+  <div id="likes_buttons_<%= @spot.id %>">
+        <%= render partial: 'likes/likes', locals: { spot: @spot} %>
+  </div>
 
 </div>
 
