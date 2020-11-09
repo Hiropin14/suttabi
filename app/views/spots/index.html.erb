@@ -25,24 +25,11 @@
       <%= t.about %>
       <%= t.created_at %>
 
-      <% if user_signed_in? %>
-       <% if current_user.already_liked?(t) %>
-          <%= link_to spot_likes_path(id: t.id, spot_id: t.id), method: :delete do %>
-              
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-
-          <% end %>
-       <% else %>
-          <%= link_to spot_likes_path(id: t.id, spot_id: t.id), method: :post do %>
-             
-            <i class="far fa-heart"></i><%= t.likes.count %>
-            
-          <% end %>
-       <% end %>
-      <% else %>
-      　<i class="far fa-heart"></i><%= t.likes.count %>
-      <% end %>
       
+      <div id="likes_buttons_<%= t.id %>">
+        <%= render partial: 'likes/likes', locals: { spot: t} %>
+     </div>
+
       <%= link_to "About", spot_path(t.id) %>
       <% if user_signed_in? && current_user.id == t.user_id %>  
        <%= link_to "Edit", edit_spot_path(t.id) %>
