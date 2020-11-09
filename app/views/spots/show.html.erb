@@ -3,6 +3,7 @@
 <div class="spot">
   <p><%= @spot.about %></p>
   <p><%= @spot.created_at %></p>
+  <%= @spot.address %>
   <%= link_to "Edit", edit_spot_path(@spot.id) %>
  
   <% if user_signed_in? %>
@@ -27,6 +28,52 @@
 
 
 
-<%= link_to "Back All Spot", spots_path %>
+<div id="map">
+ 
+</div>
+
+<style>
+#map{
+  height: 400px;
+}
+</style>
+
+<script>
+ async function initMap(){
+   
+let geocoder
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 40.7828, lng:-73.9653},
+    zoom: 12,
+  });
+   
+
+  marker = new google.maps.Marker({
+    position:  {lat: 40.7828, lng:-73.9653},
+    map: map
+  });
+ 
+  await geocoder.geocode( { 'address': gon.address}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  }); 
+}
+
+
+
+  
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOuA6uXgQmVvl0_ThQD4ZTTb3oBiU96hY&callback=initMap" async defer></script>
+
 
 

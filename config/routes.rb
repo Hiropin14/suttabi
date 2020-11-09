@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   
   get 'welcome/index' => 'welcome#index'
   get 'wencome/link' => 'welcome#link'
+
+  get '/map_request', to: 'spots#map', as: 'map_request'
 end

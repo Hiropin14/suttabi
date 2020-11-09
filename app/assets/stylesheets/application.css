@@ -14,10 +14,10 @@
  *= require_self
  */
 
- * {
+ /* * {
     padding: 0;
     margin: 50px;
-    background-color: #b7e0a7;
+    
   }
   body {
     font-weight: lighter;
@@ -57,4 +57,4 @@
   header li {
     list-style: none;
     margin-right: 40px;
-  }
+  } */

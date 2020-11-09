@@ -8,6 +8,8 @@ class CreateSpots < ActiveRecord::Migration[6.0]
       t.datetime :worktime
       t.text :about
       t.references :user, null: false, foreign_key: true
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end

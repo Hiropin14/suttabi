@@ -11,7 +11,30 @@ class SpotsController < ApplicationController
 
   def show
     @spot = Spot.find(params[:id])
+
+    # @spots = Spot.all
+    # @hash = Gmaps4rails.build_markers(@spots) do |place, marker|
+    #   marker.lat place.latitude
+    #   marker.lng place.longitude
+    #   marker.infowindow render_to_string( partial: "map/infowindow",
+    #                                       locals: {place:place} )
+    # end
+
+   gon.address = @spot.address
+     # 左辺にはgon.〇〇〇という形式で変数の名前を記入する。(頭にgon!!)
+      # この名前を使ってJavascriptファイルから変数を呼び出す。
+      # 右辺には代入したいオブジェクト(値)を記入する。
    
+   
+  end
+
+  def map
+    # respond_to以下の記述によって、
+    # remote: trueのアクセスに対して、
+    # map.js.erbが変えるようになります。
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -46,7 +69,7 @@ class SpotsController < ApplicationController
 
   private
   def spot_params
-    params.require(:spot).permit(:about, :image)
+    params.require(:spot).permit(:about, :image, :address)
   end
 
 end
