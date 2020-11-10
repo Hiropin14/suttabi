@@ -2,10 +2,10 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id]) 
-        @spots = @user.spots
-
-        favorites = Favorite.where(user_id: current_user.id).pluck(:spot_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
-        @favorite_list = Spot.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
+        @spots = @user.spots.order("created_at DESC")
+        @relationship = current_user.relationships.find_by(follow_id: @user.id)  
+        @set_relationship = current_user.relationships.new
+        @likes = Like.where(user_id: @user.id)
     end
 
 end

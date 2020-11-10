@@ -7,30 +7,34 @@
    <%= submit_tag '検索する'  %>
 <% end %>
 
-<% if user_signed_in? %>
-<%= link_to "マイページへ", user_path(current_user.id) %>　
-<% end %>
+
 
 <div class="spots-container">
   
 
   <% @spots.each do |t| %>
     <div class="spot">
-      
-      
-      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>　
+     　
+      <a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
+      </a>
+      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
 
-      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+      
 
+      <a href="/spots/<%= t.id %>"><%= image_tag t.image_url, size: "250x200" if t.image? %>
       <%= t.about %>
-      <%= t.created_at %>
+      </a>
+      <%= t.created_at %> 
+      
+      
 
       
       <div id="likes_buttons_<%= t.id %>">
         <%= render partial: 'likes/likes', locals: { spot: t} %>
-     </div>
+      </div>
 
-      <%= link_to "About", spot_path(t.id) %>
+      
+      
       <% if user_signed_in? && current_user.id == t.user_id %>  
        <%= link_to "Edit", edit_spot_path(t.id) %>
        <%= link_to "Delate", spot_path(t.id), method: :delete %>

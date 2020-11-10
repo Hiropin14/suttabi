@@ -1,16 +1,19 @@
 <h3>New Posts</h3>
 
 <%= form_for @spot do |f| %>
+   
+    <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </div>
 
+  
     <div class="field">
       <%= f.label :about %>
       <%= f.text_field :about, :size => 140 %>
     </div>
 
-    <div class="field">
-     <%= f.label :image %>
-     <%= f.file_field :image %>
-    </div>
+    
 
     <div class="field">
      <%= f.label :address %>

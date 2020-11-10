@@ -7,20 +7,30 @@
 
 <%= @user.profile %>
 
+<%= render "relationships/follow_button", user: @user %>
+
 <% if current_user.id == @user.id %>
   <%= link_to "設定", edit_user_registration_path %>
 <% end %>
 
-<% @user.spots.each do |t| %>
-  <%= t.user.name %>
-  <%= t.image %>
-  <%= t.about %>
-<% end %>
+<p><% @user.spots.each do |t| %>
+   <a href="/spots/<%= t.id %>"><%= image_tag t.image_url, size: "250x200" if t.image? %>
+       <%= t.about %>
+   </a>
+   <%= t.created_at %> 
+ <% end %></p>
+
+ <div class="contents_likes">
+   <% @likes.each do |like| %>
+   <% spot = Spot.find_by(id: like.spot_id) %>
+  <a href="/spots/<%= spot.id %>"><%= image_tag spot.image_url, size: "250x200" if spot.image? %>
+  </a>
+  <% end %>
+</div>
 
 
 
 
 
-
-<%= link_to "ALL POST", spots_path %>
+<p><%= link_to "ALL POST", spots_path %></p>
 

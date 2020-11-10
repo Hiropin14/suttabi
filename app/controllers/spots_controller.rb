@@ -2,7 +2,7 @@ class SpotsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @spots = Spot.all
+    @spots = Spot.all.order("created_at DESC")
   end
 
   def new
