@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/map_request', to: 'spots#map', as: 'map_request'
+  
+  
 end

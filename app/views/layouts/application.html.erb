@@ -20,7 +20,7 @@
          <li><%= link_to "Home", spots_path %></li>
          <li><%= link_to "NewPost", new_spot_path %></li>
          <% if user_signed_in? %>
-          <%= link_to "マイページへ", user_path(current_user.id) %>　
+          <%= link_to "MY PAGE", user_path(current_user.id) %>　
          <% end %>
        </ul>
      </div>
