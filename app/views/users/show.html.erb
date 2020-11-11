@@ -36,8 +36,7 @@
       <div class="contents_likes">
        <div class="spot">
          <% @likes.each do |like| %>
-           <% spot = Spot.find_by(id: like.spot_id) %>
-           <a href="/spots/<%= spot.id %>"><%= image_tag spot.image_url, size: "250x200" if spot.image? %>
+           <a href="/spots/<%= like.spot_id %>"><%= image_tag like.spot.image_url, size: "250x200" if like.spot.image? %>
            </a>
          <% end %>
         </div> 
@@ -46,55 +45,23 @@
     
     <div id="panel3" class="tab_panel">
       <p>ルート</p>
-      <div id="map">
-</div>
-
-<style>
-#map{
-  height: 400px;
-}
-</style>
-
-<script>
-function initMap(){
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7828, lng:-73.9653},
-    zoom: 12,
-  });
-
-  marker = new google.maps.Marker({
-    position:  {lat: 40.7828, lng:-73.9653},
-    map: map
-  });
-}
-
-
-let geocoder
-
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });   
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOuA6uXgQmVvl0_ThQD4ZTTb3oBiU96hY&callback=initMap" async defer></script>
+      <div class="map-container">
+        <div id="map" class="map-canvas"></div>
+        <div class="map-route">
+        <ul id="route-list" class="list-group"></ul>
+      </div>
+      <div class="map-search">
+       <%= button_tag "ルート検索", id: "btn-search", class: "btn btn-primary", onclick: "search()" %>
+      </div>
       
-		</div>
+
+    </div>
+		
 		
   </div>
+
+
+
   <style>
   .tab_wrap{width:500px; margin:80px auto;}
   .tab_area{font-size:0; margin:0 10px;}
@@ -108,5 +75,19 @@ function codeAddress(){
   .tab_panel.active{display:block;}
   </style>
 </div>
+
+
+<script type="text/javascript">
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers(<%= raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      handler.getMap().setCenter(new google.maps.LatLng(35.679899, 139.762507));
+      handler.getMap().setZoom(12);
+      handler.getMap().setOptions({ draggableCursor: "default" });
+      directionsDisplay.setMap(handler.getMap());
+    });
+</script>
 
 

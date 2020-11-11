@@ -1,0 +1,2 @@
+class Spotlist < ApplicationRecord
+end

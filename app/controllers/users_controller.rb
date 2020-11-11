@@ -7,16 +7,14 @@ class UsersController < ApplicationController
         @set_relationship = current_user.relationships.new
         @likes = Like.where(user_id: @user.id)
        
+        @spot_lists = Spotlist.all
+        @hash = Gmaps4rails.build_markers(@spot_lists) do |spot_list, marker|
+          marker.lat spot_list.latitude
+          marker.lng spot_list.longitude
+          marker.infowindow render_to_string( partial: "map/infowindow",
+                                              locals: {spot_list:spot_list} )
+        end
        
     end
-
-    def map
-        # respond_to以下の記述によって、
-        # remote: trueのアクセスに対して、
-        # map.js.erbが変えるようになります。
-        respond_to do |format|
-          format.js
-        end
-      end
 
 end
