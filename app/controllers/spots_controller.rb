@@ -25,7 +25,6 @@ class SpotsController < ApplicationController
       # この名前を使ってJavascriptファイルから変数を呼び出す。
       # 右辺には代入したいオブジェクト(値)を記入する。
    
-   
   end
 
   def map

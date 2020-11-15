@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
   #マイページについて
   resources :users, only: [:show, :edit, :update] do
-    get :favorites, on: :collection
     get :likes
   end
 

@@ -1,9 +1,9 @@
+<section id='mypage'>
 <h2>MY PAGE</h2>
 <%= @user.name %>
 <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
 <%= @user.profile %>
 <%= render "relationships/follow_button", user: @user %>
-
 <% if current_user.id == @user.id %>
   <%= link_to "設定", edit_user_registration_path %>
 <% end %>
@@ -12,82 +12,105 @@
 	<input id="tab1" type="radio" name="tab_btn" checked>
   <input id="tab2" type="radio" name="tab_btn">
   <input id="tab3" type="radio" name="tab_btn">
-	
 
 	<div class="tab_area">
 		<label class="tab1_label" for="tab1">投稿</label>
     <label class="tab2_label" for="tab2">いいね</label>
     <label class="tab3_label" for="tab3">ルート</label>
   </div>
-  
-	<div class="panel_area">
+	 <div class="panel_area">
 		<div id="panel1" class="tab_panel">
-      <p><% @user.spots.each do |t| %>
-        <div class="spot">
+      <% @user.spots.each do |t| %>
           <a href="/spots/<%= t.id %>"><%= image_tag t.image_url, size: "250x200" if t.image? %>
           <%= t.about %>
-          </a>
-          <%= t.created_at %> 
-        </div>  
-      <% end %></p>
+          </a> 
+      <% end %>
     </div>
-    
+  
 		<div id="panel2" class="tab_panel">
-      <div class="contents_likes">
-       <div class="spot">
          <% @likes.each do |like| %>
            <a href="/spots/<%= like.spot_id %>"><%= image_tag like.spot.image_url, size: "250x200" if like.spot.image? %>
            </a>
          <% end %>
-        </div> 
-     </div>
     </div>
-    
-    <div id="panel3" class="tab_panel">
-      <p>ルート</p>
-      <div class="map-container">
-        <div id="map" class="map-canvas"></div>
-        <div class="map-route">
-        <ul id="route-list" class="list-group"></ul>
-      </div>
-      <div class="map-search">
-       <%= button_tag "ルート検索", id: "btn-search", class: "btn btn-primary", onclick: "search()" %>
-      </div>
+
+    <div id="panel3" class="tab_panel">     
       
-
+       <div id="map">
+       </div>
+        
+         <form id="search">
+           <div id='location-list'>
+             <input type='text' id='startPosition'placeholder='スタート地点' required>
+             <input type='text' id='endPosition' placeholder='ゴール地点' required>
+           </div>
+           <button id='add'>経由地を追加</button>
+           <input type='submit' value='検索'>
+         </form>
+        
+      
     </div>
-		
-		
   </div>
-
-
-
-  <style>
-  .tab_wrap{width:500px; margin:80px auto;}
-  .tab_area{font-size:0; margin:0 10px;}
-  .tab_area label{width:150px; margin:0 5px; display:inline-block; padding:12px 0; color:#999; background:#ddd; text-align:center; font-size:13px; cursor:pointer; transition:ease 0.2s opacity;}
-  .tab_area label:hover{opacity:0.5;}
-  .panel_area{background:#fff;}
-  .tab_panel{width:100%; padding:80px 0; display:none;}
-  .tab_panel p{font-size:14px; letter-spacing:1px; text-align:center;}
-  
-  .tab_area label.active{background:#fff; color:#000;}
-  .tab_panel.active{display:block;}
-  </style>
 </div>
+</section>
 
 
-<script type="text/javascript">
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(<%= raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      handler.getMap().setCenter(new google.maps.LatLng(35.679899, 139.762507));
-      handler.getMap().setZoom(12);
-      handler.getMap().setOptions({ draggableCursor: "default" });
-      directionsDisplay.setMap(handler.getMap());
-    });
+<script>
+function initMap(){
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 7,
+    center: { lat: 35.47, lng: 139.59 }, //神奈川県の某大学
+
+  });
+  directionsRenderer.setMap(map);
+  const onChangeHandler =  async function (event) {
+   await getPosition(directionsService, directionsRenderer);
+   event.preventDefault();
+  };
+  document.getElementById("search").addEventListener("submit", onChangeHandler);
+}
+const getPosition = async (directionsService, directionsRenderer) => {
+  const start = document.getElementById('startPosition')
+  const end = document.getElementById('endPosition')
+  const via_forms = Array.from(document.querySelectorAll(".via"))
+  const waypoints = via_forms.map((spot) => {
+    return {
+      "location": spot.value,
+      "stopover": false
+     }
+  })
+  calculateAndDisplayRoute(directionsService, directionsRenderer,start,end,waypoints);
+}
+function calculateAndDisplayRoute(directionsService, directionsRenderer,start,end,waypoints) {
+  directionsService.route(
+    {
+      origin:  start.value,
+      destination: end.value,
+      waypoints: waypoints,
+      travelMode: google.maps.TravelMode.DRIVING,
+    },
+    (response, status) => {
+      if (status === "OK") {
+        directionsRenderer.setDirections(response);
+      } else {
+        window.alert("Directions request failed due to " + status);
+      }
+    }
+  );
+}
+const addSpot = () => {
+  const destination_form = document.getElementById('endPosition')
+  const how_many = document.getElementById('location-list').children.length
+  const input = document.createElement('input')
+  input.placeholder ='経由地名を入力'
+  input.required = true
+  input.classList.add('via')
+  input.id = 'via' + how_many
+  destination_form.before(input)
+}
+document.getElementById("add").addEventListener('click',addSpot)
+console.log(gon.liked_addresses) 
 </script>
-
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?&key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"></script>

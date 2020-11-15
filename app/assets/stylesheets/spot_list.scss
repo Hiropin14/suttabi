@@ -1,36 +1,27 @@
-.map-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-    padding-bottom: 56.25%;
-}
-
-.map-canvas {
-    position: absolute;
-    top: 0;
-    right: 40%;
-    bottom: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-}
-.map-route {
-    overflow: scroll;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 54px;
-    left: 60%;
-    margin: 0;
-    padding: 10px;
-}
-
-.map-search {
-    position: absolute;
-    height: 54px;
-    right: 0;
-    bottom: 0;
-    left: 60%;
-    margin: 0;
-    padding: 10px;
-}
+#mypage {
+    .panel_area {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .tab_panel {
+        width: 100%;
+      }
+      #panel3 {
+       
+        flex-direction: row;
+        justify-content: space-between;
+        #map {
+          height: 400px;
+        }
+        #location-list {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      }
+      .hide {
+        display: none;
+      }
+    }
+  }
+  

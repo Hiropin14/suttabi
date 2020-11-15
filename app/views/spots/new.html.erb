@@ -71,4 +71,4 @@ function codeAddress(){
 }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOuA6uXgQmVvl0_ThQD4ZTTb3oBiU96hY&callback=initMap" async defer></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?&key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"></script>

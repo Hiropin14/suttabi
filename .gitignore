@@ -38,4 +38,4 @@ yarn-debug.log*
 .yarn-integrity
 /lib/tasks/import_from_lp.rake
 
-/.env".env" 
+.env

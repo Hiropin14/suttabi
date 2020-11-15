@@ -4,8 +4,6 @@
 
   <p><%= image_tag @spot.image_url, size: "250x200" if @spot.image? %></p>
   <p><%= @spot.about %></p>
-  
-  <%= @spot.address %>
  
  
   <div id="likes_buttons_<%= @spot.id %>">
@@ -18,7 +16,6 @@
 
 
 <div id="map">
- 
 </div>
 
 <style>
@@ -37,7 +34,6 @@ let geocoder
     center: {lat: 40.7828, lng:-73.9653},
     zoom: 12,
   });
-   
 
   marker = new google.maps.Marker({
     position:  {lat: 40.7828, lng:-73.9653},
@@ -59,9 +55,8 @@ let geocoder
 
 
 
-  
-
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?&key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"></script>
 
 
 
