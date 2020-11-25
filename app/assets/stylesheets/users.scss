@@ -1,14 +1,82 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.tab_wrap{width:500px; margin:80px auto;}
-input[type="radio"]{display:none;}
-.tab_area{font-size:0; margin:0 10px;}
-.tab_area label{width:150px; margin:0 5px; display:inline-block; padding:12px 0; color:#999; background:#ddd; text-align:center; font-size:13px; cursor:pointer; transition:ease 0.2s opacity;}
-.tab_area label:hover{opacity:0.5;}
-.panel_area{background:#fff;}
-.tab_panel{width:100%; padding:50px 0; display:none;}
-.tab_panel p{font-size:14px; letter-spacing:1px; text-align:center;}
+#mypage {
+p {  
+  display: flex;  
+  justify-content: space-around;
+}
+
+// form {
+//   display: flex;  
+//   justify-content: space-around;
+// }
+
+p.name {
+	display: inline;
+	margin-left: 48%;
+}
+
+a {
+	display: inline;
+	margin: 0, auto;
+}
+
+p img {
+	border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+	width:  100px;       /* ※縦横を同値に */
+	height: 100px;       /* ※縦横を同値に */
+}
+p.profile　{
+	text-align: center;
+}
+
+img {
+	width: 345px;
+	height: 400px;
+	object-fit: cover; /* この一行を追加するだけ！ */
+}
+
+.tab_wrap {
+	width:750px; 
+	margin:50px auto;
+}
+
+input[type="radio"] {
+	display:none;
+	background:#E3FECE;
+}
+
+.tab_area { 
+	font-size:0; 
+	margin-left: 100px;
+} 
+
+.tab_area label {
+	width:150px; 
+	margin:0 5px; 
+	display:inline-block; 
+	padding:12px 0; color:#999; 
+	background: #E3FECE; 
+	text-align:center; 
+	font-size:13px; 
+	cursor:pointer; 
+	transition:ease 0.2s opacity;
+}
+
+.tab_area label:hover {
+	opacity:0.5;
+}
+
+.panel_area {
+	background:#E3FECE
+}
+
+.tab_panel {
+	width:100%; 
+	padding:50px 0; 
+	display:none;
+} 
 
 #tab1:checked ~ .tab_area .tab1_label{background:#fff; color:#000;}
 #tab1:checked ~ .panel_area #panel1{display:block;}
@@ -25,4 +93,64 @@ $length:3;
 		~ .panel_area #panel#{$i}{display:block;}
 	}
 	$i:$i + 1;
+}
+ 
+
+}	
+
+section#user_edit{
+    align-items: center;
+    margin-left: 35%;
+
+div.field {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+div.area {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+a {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+textarea {
+    width: 436px;
+    height: 271px;
+}
+
+.submit{
+    margin-left: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+input#preview {
+    display: inline-block;
+    vertical-align: middle;
+}
+}
+
+section#signup{
+	align-items: center;
+	margin-left: 40%;
+	
+	div.field {
+		width:700px;
+		margin-bottom: 40px;
+	}
+}
+
+section#login{
+	align-items: center;
+	margin-left: 40%;
+
+	div.field {
+		width:700px;
+		margin-bottom: 40px;
+	}
+
 }

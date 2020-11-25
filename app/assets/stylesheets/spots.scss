@@ -1,3 +1,55 @@
 // Place all the styles related to the spots controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+#allspot {
+
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  margin-left: 250px;
+  margin-top: 50px;
+  width: 1200px;
+  
+}
+
+.spot {
+  background: white;
+  width: 345px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  box-sizing: border-box;
+ 
+}
+
+img {
+    width: 345px;
+    height: 400px;
+    object-fit: cover; /* この一行を追加するだけ！ */
+}
+
+p img {
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  width:  70px;       /* ※縦横を同値に */
+  height: 70px;       /* ※縦横を同値に */
+}
+
+form {
+  display: block;
+  margin-top: 0px;
+  margin-left: 1060px;
+}
+
+p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+div {
+  display: inline-block;
+  vertical-align: middle;
+  
+}
+
+}

@@ -18,20 +18,20 @@
      <div class="header-list">
        <ul>
          <li><%= link_to "Home", spots_path %></li>
-         <li><%= link_to "NewPost", new_spot_path %></li>
+         <li><%= link_to "New Spot", new_spot_path %></li>
          <% if user_signed_in? %>
-          <%= link_to "MY PAGE", user_path(current_user.id) %>　
+          <li><%= link_to "My Page", user_path(current_user.id) %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
          <% end %>
        </ul>
      </div>
    </header>
-   
-   <main>
+  </body>
+  
+  <main>
      <%= yield %>
    </main>
 
   
-
-  </body>
 </html>
 

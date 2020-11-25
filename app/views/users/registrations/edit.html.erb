@@ -1,4 +1,7 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<section id="user_edit">
+
+
+<h2>設定</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
@@ -9,8 +12,8 @@
   </div>
 
   <div class="field">
-     <%= f.label :image %>
-     <%= f.file_field :image %>
+     <%= image_tag "noimage.jpg", id:"preview", alt:"プレビュー", size: '300x200' %>
+     <%= f.file_field :image, accept: ".jpg,.jpeg,.png,.gif", onchange:"previewImage(this)" %>
     </div>
 
   <div class="field">
@@ -51,8 +54,16 @@
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<p><%= button_to "アカウントの削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<%= link_to "戻る", :back %>
+</section>
+<script>
+    function previewImage(obj){
+        var fileReader = new FileReader();
+        fileReader.onload = (function() {
+            document.getElementById('preview').src = fileReader.result;
+        });
+        fileReader.readAsDataURL(obj.files[0]);
+    }
+</script>

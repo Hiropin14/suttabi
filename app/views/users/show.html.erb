@@ -1,28 +1,35 @@
 <section id='mypage'>
-<h2>MY PAGE</h2>
-<%= @user.name %>
-<%= image_tag @user.image_url, size: "250x200" if @user.image? %>
-<%= @user.profile %>
-<%= render "relationships/follow_button", user: @user %>
-<% if current_user.id == @user.id %>
-  <%= link_to "設定", edit_user_registration_path %>
-<% end %>
+
+    <p><%= image_tag @user.image_url %></p>
+    <p class="name"><%= @user.name %>
+       <% if current_user.id == @user.id %>
+          <%= link_to edit_user_registration_path(id: @user.id) do %>
+            <i class="fas fa-cog"></i>
+          <% end %>
+       <% end %>
+   　　<%= render "relationships/follow_button", user: @user %>
+  　</p>
+    <p><%= @user.followers.count %></p>
+    <p class="profile"><%= @user.profile %></p> 
+    
+  
 
 <div class="tab_wrap">
 	<input id="tab1" type="radio" name="tab_btn" checked>
+  <% if current_user.id == @user.id %>
   <input id="tab2" type="radio" name="tab_btn">
   <input id="tab3" type="radio" name="tab_btn">
+  <% end %>
 
 	<div class="tab_area">
-		<label class="tab1_label" for="tab1">投稿</label>
-    <label class="tab2_label" for="tab2">いいね</label>
-    <label class="tab3_label" for="tab3">ルート</label>
+		<label class="tab1_label" for="tab1"><i class="fas fa-images"></i></label>
+    <label class="tab2_label" for="tab2"><i class="far fa-heart"></i></label>
+    <label class="tab3_label" for="tab3"><i class="fas fa-route"></i></label>
   </div>
 	 <div class="panel_area">
 		<div id="panel1" class="tab_panel">
       <% @user.spots.each do |t| %>
-          <a href="/spots/<%= t.id %>"><%= image_tag t.image_url, size: "250x200" if t.image? %>
-          <%= t.about %>
+          <a href="/spots/<%= t.id %>"><%= image_tag t.image_url %>
           </a> 
       <% end %>
     </div>
@@ -35,7 +42,12 @@
     </div>
 
     <div id="panel3" class="tab_panel">     
-      
+    　<div>
+       <input type="button" value="車" id='driving'>
+       <input type="button" value="電車" id='train'>
+       <input type="button" value="徒歩" id='walking'>
+      </div>　
+
        <div id="map">
        </div>
         
@@ -48,7 +60,10 @@
            <input type='submit' value='検索'>
          </form>
         
-      
+       <p>いいねした場所</p>  
+       <% @likes.each do |like| %>
+         <%= like.spot.address %>
+       <% end %>
     </div>
   </div>
 </div>
@@ -62,9 +77,9 @@ function initMap(){
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 7,
     center: { lat: 35.47, lng: 139.59 }, //神奈川県の某大学
-
   });
   directionsRenderer.setMap(map);
+  drop(map)
   const onChangeHandler =  async function (event) {
    await getPosition(directionsService, directionsRenderer);
    event.preventDefault();
@@ -110,7 +125,41 @@ const addSpot = () => {
   input.id = 'via' + how_many
   destination_form.before(input)
 }
+function drop(map) {
+  for (const address of  gon.liked_addresses) {
+    setTimeout(function() {
+      addMarkerMethod(address,map);
+    }, 200);
+  }
+}
+const addMarkerMethod = async (address,map) => {
+    geocoder = new google.maps.Geocoder()
+    await geocoder.geocode( { 'address': address }, function(results, status) {
+    if (status == 'OK') {
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+        marker = new google.maps.Marker({
+    map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: results[0].geometry.location
+  });
+  marker.addListener("click", toggleBounce);
+  function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  }); 
+}
 document.getElementById("add").addEventListener('click',addSpot)
-console.log(gon.liked_addresses) 
+console.log(gon.liked_addresses)
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?&key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"></script>

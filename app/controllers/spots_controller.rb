@@ -2,7 +2,17 @@ class SpotsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @spots = Spot.all.order("created_at DESC")
+    @spots = Spot.all
+
+    if params[:search] == nil
+      @spots= Spot.all
+    elsif params[:search] == ''
+      @spots= Spot.all
+    else
+      #部分検索
+      @spots = Spot.where("about or address LIKE ? ",'%' + params[:search] + '%')
+    end
+    
   end
 
   def new

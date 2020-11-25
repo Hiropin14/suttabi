@@ -1,26 +1,37 @@
-<h3>About Spots</h3>
+<section id="spotshow">
 
-<div class="spot">
+  <div class="spot_about">
+       <%= image_tag @spot.image_url %>
+     <p><a href="/users/<%= @spot.user.id %>"><%= image_tag @spot.user.image_url %></a>
+     <p><a href="/users/<%= @spot.user.id %>"><%= @spot.user.name %></a></p>
+     <p id="likes_buttons_<%= @spot.id %>">
+       <%= render partial: 'likes/likes', locals: { spot: @spot} %>
+    </p>
+     <% if user_signed_in? && current_user.id == @spot.user_id %>  
+         <%= link_to edit_spot_path(id: @spot.id) do %>
+           <i class="fas fa-pencil-alt"></i> 
+         <% end %>
+         <%= link_to spot_path(id: @spot.id), method: :delete do %>
+           <i class="far fa-trash-alt"></i>
+         <% end %> 
+       <% end %>
 
-  <p><%= image_tag @spot.image_url, size: "250x200" if @spot.image? %></p>
-  <p><%= @spot.about %></p>
- 
- 
-  <div id="likes_buttons_<%= @spot.id %>">
-        <%= render partial: 'likes/likes', locals: { spot: @spot} %>
+    <br><%= @spot.about %></br>
+    <br><%= @spot.created_at %></br>
   </div>
-  <p><%= @spot.created_at %></p>
-   <%= link_to "Edit", edit_spot_path(@spot.id) %>
-</div>
+</section>
 
 
-
-<div id="map">
+<div id="map"> 
 </div>
 
 <style>
 #map{
   height: 400px;
+  width:700px;
+  margin-right: auto;
+  margin-left : auto;
+  margin-bottom: 50px;
 }
 </style>
 
@@ -32,7 +43,7 @@ let geocoder
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.7828, lng:-73.9653},
-    zoom: 12,
+    zoom: 15,
   });
 
   marker = new google.maps.Marker({

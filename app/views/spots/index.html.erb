@@ -1,35 +1,26 @@
-<h3>HOME</h3>
+<section id="allspot">
 
-<h3>投稿を検索</h3>
- <%= form_tag({controller:"spots",action:"index"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
-
-
-
-<div class="spots-container">
-  
-
-  <% @spots.each do |t| %>
-    <div class="spot">
-     　
-      <dis class="<a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
-                  </a>
-                  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-                  <a href="/spots/<%= t.id %>"><%= image_tag t.image_url, size: "250x200" if t.image? %>
-                  <%= t.about %></a>
-                  <%= t.created_at %> 
-        
-                  <div id="likes_buttons_<%= t.id %>">
-                    <%= render partial: 'likes/likes', locals: { spot: t} %>
-                  </div>
-                 <% if user_signed_in? && current_user.id == t.user_id %>  
-                 <%= link_to "Edit", edit_spot_path(t.id) %>
-                 <%= link_to "Delate", spot_path(t.id), method: :delete %>
-                 <% end %> 　
-      </div>
-    </div>
+<div class="spot_research">
+   <%= form_tag({controller:"spots",action:"index"}, method: :get) do %>
+     <%= text_field_tag :search %>
+     <%= submit_tag '検索する'  %>
   <% end %>
 </div>
-<%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+
+
+<div class="flexbox">
+  <% @spots.each do |t| %>
+    <div class="spot">
+      <a href="/spots/<%= t.id %>"><%= image_tag t.image_url %></a>
+      <p><a href="/users/<%= t.user.id %>"><%= image_tag t.user.image_url %></a></p>
+    
+      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>          
+      <div id="likes_buttons_<%= t.id %>">
+         <%= render partial: 'likes/likes', locals: { spot: t} %>
+      </div>
+    
+      
+    </div>
+   <% end %>
+</div>
+</section>

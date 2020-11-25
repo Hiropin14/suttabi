@@ -1,0 +1,39 @@
+#new {
+    display: flex;  
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 15%;
+
+div.field {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+div.area {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+a {
+    width:700px;
+    margin-bottom: 40px;
+}
+
+textarea {
+    width: 436px;
+    height: 271px;
+}
+
+.submit{
+    margin-left: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+input#preview {
+    display: inline-block;
+    vertical-align: middle;
+}
+ 
+
+}

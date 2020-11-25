@@ -1,18 +1,17 @@
-<h3>Edit Spots</h3>
-
+<section id="new">
 <%= form_for @spot do |f| %>
-    
-    <%= f.text_field :about, :size => 140 %> 
-    
-
-    <div class="field">
-      <%= f.label :address %>
-      <%= f.text_field :address, :size => 140, id:'address' %>
-      <input type="button" value="Encode" onclick="codeAddress()">
-    </div>
-    
-    <%= f.submit "Edit" %>
-<% end %>
+     <div class="area">
+       <%= f.text_area :about %> 
+     </div>
+      <div class="field">
+        <%= f.text_field :address, :size => 50, id:'address' %>
+        <input type="button" value="preview" onclick="codeAddress()">
+      </div>
+      <div class="submit">
+       <%= f.submit "決定" %>
+      </div>
+  <% end %>
+</section>
 
 <div id="map">
 </div>
@@ -20,6 +19,10 @@
 <style>
 #map{
   height: 400px;
+  width:700px;
+  margin-right: auto;
+  margin-left : auto;
+  margin-bottom: 70px;
 }
 </style>
 
@@ -29,7 +32,7 @@ function initMap(){
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.7828, lng:-73.9653},
-    zoom: 12,
+    zoom: 15,
   });
 
   marker = new google.maps.Marker({
