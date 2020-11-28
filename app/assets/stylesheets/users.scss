@@ -2,18 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 #mypage {
+	text-align: center;
+div{
+  margin-bottom: 10px;
+}
 p {  
   display: flex;  
   justify-content: space-around;
 }
 
- form#edit_relationship_2.edit_relationship {
-   margin-left: 48%;
-}
-
 p.name {
 	display: inline;
-	margin-left: 49%;
+	margin-left: 48%;
 }
 
 a {
@@ -47,8 +47,7 @@ input[type="radio"] {
 }
 
 .tab_area { 
-	font-size:0; 
-	margin-left: 100px;
+	
 } 
 
 .tab_area label {
@@ -73,7 +72,7 @@ input[type="radio"] {
 
 .tab_panel {
 	width:100%; 
-	padding:50px 0; 
+	padding-bottom:50px; 
 	display:none;
 } 
 
@@ -152,4 +151,27 @@ section#login{
 		margin-bottom: 40px;
 	}
 
+}
+
+#followings{
+ text-align: center;
+ vertical-align: middle;
+ margin: 0;
+
+	img{
+	border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+	width:  100px;       /* ※縦横を同値に */
+	height: 100px;       /* ※縦横を同値に */
+	}
+}
+
+#followers{
+	text-align: center;
+	vertical-align: middle;
+	margin: 0;
+	img{
+	border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+	width:  100px;       /* ※縦横を同値に */
+	height: 100px;       /* ※縦横を同値に */
+	}
 }

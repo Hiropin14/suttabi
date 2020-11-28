@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: suttabi_production
-  username: suttabi
-  password: <%= ENV['SUTTABI_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5  
