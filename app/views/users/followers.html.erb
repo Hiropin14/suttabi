@@ -1,0 +1,13 @@
+<section id="followers"> 
+<h2>フォロワー</h2>
+   <% @user.followers.each do |user| %>
+    <tr>
+      <%= image_tag user.image_url %></td>
+      <td><%= user.name %></td>
+      <td><%= link_to '詳細', user_path(user) %></td>
+    </tr>
+    
+    
+    <% end %>
+</section>
+    

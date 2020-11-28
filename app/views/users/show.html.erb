@@ -1,18 +1,15 @@
 <section id='mypage'>
 
     <p><%= image_tag @user.image_url %></p>
-    <p class="name"><%= @user.name %>
+    <div class="name"><%= @user.name %><%= render "relationships/follow_button", user: @user %>
        <% if current_user.id == @user.id %>
           <%= link_to edit_user_registration_path(id: @user.id) do %>
             <i class="fas fa-cog"></i>
           <% end %>
-       <% end %>
-   　  <%= render "relationships/follow_button", user: @user %>
-  　</p>
-    <p><%= @user.followers.count %></p>
-    <p class="profile"><%= @user.profile %></p> 
-    
-  
+       <% end %></div>
+　<%=link_to'フォロー',followings_user_path(@user.id) %><%= @user.followings.count %>
+  <%=link_to'フォロワー',followers_user_path(@user.id) %><%= @user.followers.count %>
+  <p class="profile"><%= @user.profile %></p> 
 
 <div class="tab_wrap">
 	<input id="tab1" type="radio" name="tab_btn" checked>
@@ -46,6 +43,7 @@
        <input type="button" value="車" id='driving'>
        <input type="button" value="電車" id='train'>
        <input type="button" value="徒歩" id='walking'>
+       <input type="button" value="自転車" id='bicycle'>
       </div>　
 
        <div id="map">

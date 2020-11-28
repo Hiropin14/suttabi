@@ -1,0 +1,13 @@
+<section id="followings">
+ <h2>フォロー中の人</h2>
+  <% @user.followings.each do |user| %>
+    <div>
+    <tr>
+      <td><%= image_tag user.image_url %></td>
+      <td><%= user.name %> </td>
+      <td><%= link_to '詳細', user_path(user) %></td>
+    </tr>
+    
+    </div>
+  <% end %>
+</section>
